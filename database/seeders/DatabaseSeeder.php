@@ -1,10 +1,13 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,17 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        // $this->seedAdmin();
-        DB::table('users')->insert([
-            'name' => 'Admin',
+        \App\Models\User::create([
+            'first_name' => 'Admin',
             'email' => 'admin@example.com',
-            'password' => Hash::make('password'), // Replace 'password' with the actual password
-            // Add other admin details here if needed
-            // 'is_admin' => true, // Assuming you have a column named 'is_admin' to identify admin users
+            'password' => Hash::make('password'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

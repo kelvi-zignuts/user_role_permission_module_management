@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('modules', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
+            $table->string('module_code')->primary();
+            $table->string('name');
+            $table->string('description');
+            $table->string('parent_code')->nullable();
+            $table->tinyInteger('is_active')->default(1);
             $table->timestamps();
         });
     }
