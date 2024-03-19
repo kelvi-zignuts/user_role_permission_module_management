@@ -10,4 +10,6 @@ class Module extends Model
     use HasFactory;
 
     protected $fillable = ['code', 'name', 'description', 'parent_module_code', 'is_active'];
+
+    protected $primaryKey = 'code';
 }

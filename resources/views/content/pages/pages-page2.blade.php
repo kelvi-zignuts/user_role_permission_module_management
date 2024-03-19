@@ -9,3 +9,4 @@ $configData = Helper::appClasses();
 @section('content')
 <h4>Modules</h4>
 @endsection
+

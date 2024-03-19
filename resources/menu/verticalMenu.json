@@ -7,10 +7,10 @@
       "slug": "pages-home"
     },
     {
-      "url": "page-2",
+      "url": "modules",
       "icon": "menu-icon tf-icons ti ti-file",
       "name": "Modules",
-      "slug": "pages-page-2"
+      "slug": "modules-index"
     },
     {
       "url": "pages/misc-error",
