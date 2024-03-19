@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::create([
             'first_name' => 'Admin',
-            'email' => 'admin@example.com',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
-            'created_at' => now(),
-            'updated_at' => now(),
+            // 'created_at' => now(),
+            // 'updated_at' => now(),
         ]);
     }
 }

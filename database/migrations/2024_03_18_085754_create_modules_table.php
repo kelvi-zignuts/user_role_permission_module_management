@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('modules', function (Blueprint $table) {
-            // $table->id();
-            $table->string('module_code')->primary();
-            $table->string('name');
-            $table->string('description');
-            $table->string('parent_code')->nullable();
-            $table->tinyInteger('is_active')->default(1);
+            $table->string('code', 8)->primary();
+            $table->string('name', 64);
+            $table->string('description', 255)->nullable();
+            $table->string('parent_module_code', 8)->nullable();
+            $table->foreign('parent_module_code')->references('code')->on('modules')->onDelete('cascade');
+            $table->tinyInteger('is_active');
             $table->timestamps();
         });
     }

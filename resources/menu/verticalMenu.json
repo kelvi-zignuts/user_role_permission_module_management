@@ -9,13 +9,13 @@
     {
       "url": "page-2",
       "icon": "menu-icon tf-icons ti ti-file",
-      "name": "Page 2",
+      "name": "Modules",
       "slug": "pages-page-2"
     },
     {
       "url": "pages/misc-error",
-      "name": "Error",
-      "icon": "menu-icon tf-icons ti ti-alert-triangle",
+      "name": "Permissions",
+      "icon": "menu-icon tf-icons ti ti-file",
       "slug": "pages-misc-error",
       "target": "_blank"
     },

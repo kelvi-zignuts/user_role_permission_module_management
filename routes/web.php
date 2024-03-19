@@ -23,5 +23,7 @@ Route::get('/page-2', $controller_path . '\pages\Page2@index')->name('pages-page
 Route::get('/pages/misc-error', $controller_path . '\pages\MiscError@index')->name('pages-misc-error');
 
 // authentication
+// Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
 Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
+Route::post('/auth/login-basic', $controller_path . '\authentications\LoginBasic@login')->name('login');
 Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
