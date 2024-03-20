@@ -35,18 +35,30 @@ class ModuleController extends Controller
         $module->update($request->all());
         return redirect()->route('modules-index')->with('success', 'Module updated successfully');
     }
-    public function toggleActive(Request $request, $code)
+    public function toggleActive($code)
     {
-        $request->validate([
-            'is_active' => 'required|boolean',
-        ]);
+        $module = Module::where('code', $code)->firstOrFail();
+        
+        $module->update(['is_active' => !$module->is_active]);
+        // $module->update(['is_active' => false]);
 
-        $module = Module::findOrFail($code);
-        $module->update([
-            'is_active' => $request->input('is_active'),
-        ]);
-
+        
+        if (!$module->is_active) {
+            $module->subModules()->update(['is_active' => false]);
+        }
+        
         return redirect()->back()->with('success', 'Module status updated successfully.');
+    
+    //     $request->validate([
+    //         'is_active' => 'required|boolean',
+    //     ]);
+
+    //     $module = Module::findOrFail($code);
+    //     $module->update([
+    //         'is_active' => $request->input('is_active'),
+    //     ]);
+
+    //     return redirect()->back()->with('success', 'Module status updated successfully.');
     }
 
 }
