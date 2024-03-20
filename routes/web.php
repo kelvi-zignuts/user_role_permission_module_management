@@ -19,8 +19,13 @@ use App\Http\Controllers\ModuleController;
 
 $controller_path = 'App\Http\Controllers';
 
+// authentication
+Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
+Route::post('/auth/login-basic', $controller_path . '\authentications\LoginBasic@login')->name('login');
+// Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
+
 // Main Page Route
-Route::middleware('api')->group(function () use ($controller_path) {
+Route::middleware('auth')->group(function () use ($controller_path) {
     // Main Page Route
     Route::get('/', $controller_path . '\pages\HomePage@index')->name('pages-home');
     // Route::get('/modules', $controller_path . '\modules\ModuleController@index')->name('modules-index');
@@ -29,10 +34,7 @@ Route::middleware('api')->group(function () use ($controller_path) {
     // pages
     Route::get('/pages/misc-error', $controller_path . '\pages\MiscError@index')->name('pages-misc-error');
 
-    // authentication
-    Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
-    Route::post('/auth/login-basic', $controller_path . '\authentications\LoginBasic@login')->name('login');
-    Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
+    
 
     Route::get('/modules', [ModuleController::class, 'index'])->name('modules-index');
     Route::get('/modules/edit/{code}', [ModuleController::class, 'edit'])->name('modules.edit');

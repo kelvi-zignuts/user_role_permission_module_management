@@ -10,9 +10,23 @@ use App\Http\Controllers\Controller;
 
 class ModuleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $filter = $request->query('filter', 'all');
         $modules = Module::all();
+        // $filter = $request->query('filter');
+        // switch ($filter) {
+        //     case 'active':
+        //         $modules = Module::where('is_active', true)->get();
+        //         break;
+        //     case 'inactive':
+        //         $modules = Module::where('is_active', false)->get();
+        //         break;
+        //     default:
+        //         $modules = Module::all();
+        //         break;
+        // }
+
         return view('modules.index', compact('modules'));
     }
     public function edit($code)

@@ -7,31 +7,24 @@ $configData = Helper::appClasses();
 @section('title', 'Modules')
 
 @section('content')
-{{-- <h1>List of Modules</h1> --}}
-
-    {{-- <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($modules as $module)
-                <tr>
-                    <td>{{ $module->name }}</td>
-                    <td>{{ $module->description }}</td>
-                    <td>
-                        <a href="">Edit</a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table> --}}
+    {{-- <div class="col-12">
+        <label class="switch">
+          <input type="checkbox" class="switch-input">
+          <span class="switch-toggle-slider">
+            <span class="switch-on"></span>
+            <span class="switch-off"></span>
+          </span>
+          <span class="switch-label">Save card for future billing?</span>
+        </label>
+      </div> --}}
     <div class="card">
         <h5 class="card-header">Modules</h5>
         <div class="card-datatable table-responsive">
+            {{-- <div class="filter">
+                <a href="{{ route('modules-index') }}">All</a>
+                <a href="{{ route('modules-index', ['filter' => 'active']) }}">Active</a>
+                <a href="{{ route('modules-index', ['filter' => 'inactive']) }}">Inactive</a>
+            </div> --}}
             <table class="dt-responsive table">
                 <thead>
                     <tr>
@@ -52,10 +45,17 @@ $configData = Helper::appClasses();
                                 @csrf
                                 <input type="hidden" name="is_active" value="{{ $module->is_active ? '0' : '1' }}">
                                 <label class="toggle-switch">
-                                    <input type="checkbox" onchange="this.form.submit()" {{ $module->is_active ? 'checked' : '' }}>
+                                    <input type="checkbox" onchange="submit()" {{ $module->is_active ? 'checked' : '' }}>
                                     <span class="slider"></span>
                                 </label>
                             </form>
+                            {{-- <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="hidden" name="is_active" value="{{ $module->is_active ? '0' : '1' }}">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" onchange="submit()" {{ $module->is_active ? 'checked' : '' }}>
+                                    <span class="slider"></span>
+                                </label>
+                              </div> --}}
                         </td>
                         
                         {{-- <td>{{ $module->is_active ? 'Active' : 'Inactive' }}</td> --}}
@@ -83,7 +83,7 @@ $configData = Helper::appClasses();
                                             <form action="{{ route('modules.toggleActive', $subModule->code) }}" method="POST">
                                                 @csrf
                                                 <label class="toggle-switch">
-                                                    <input type="checkbox" name="is_active" onchange="this.form.submit()" {{ $module->is_active && $subModule->is_active ? 'checked' : '' }}>
+                                                    <input type="checkbox" name="is_active" onchange="submit()" {{ $module->is_active && $subModule->is_active ? 'checked' : '' }}>
                                                     <span class="slider"></span>
                                                 </label>
                                             </form>
