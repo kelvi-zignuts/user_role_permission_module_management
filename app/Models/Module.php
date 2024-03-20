@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
-    use HasFactory;
+    protected $primaryKey = 'code'; // Specify the primary key column
 
+    protected $keyType = 'string';
     protected $fillable = ['code', 'name', 'description', 'parent_module_code', 'is_active'];
 
-    protected $primaryKey = 'code';
+    public function subModules()
+    {
+        return $this->hasMany(Module::class, 'parent_module_code', 'code');
+    }
 }

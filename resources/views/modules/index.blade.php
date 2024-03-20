@@ -44,13 +44,13 @@ $configData = Helper::appClasses();
              
                 @foreach ($modules as $module)
                 <tr>
-                    {{-- @dd($module) --}}
                     <td>{{ $module->name }}</td>
                     <td>{{ $module->description }}</td>
                     <td>
                         {{-- <a href="{{ route('modules.edit', ['code' => $module->code]) }}">Edit</a> --}}
                         {{-- @dd($module->code) --}}
-                        <a href="{{ url('modules/edit', ['code' => urlencode($module->code)]) }}">Edit</a>
+                        {{-- <a href="{{route('modules.edit')}}?param={{$module->code}}">Edit</a> --}}
+                        <a href="{{ route('modules.edit', ['code'=> $module->code] ) }}" class="btn btn-primary">Edit</a>
                     </td>
                 </tr>
             @endforeach
