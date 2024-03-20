@@ -48,17 +48,16 @@ $configData = Helper::appClasses();
                         <td>{{ $module->name }}</td>
                         <td>{{ $module->description }}</td>
                         <td>
-                            <form action="{{route('modules.toggleActive',$module->code)}}" method="POST">
+                            <form action="{{ route('modules.toggleActive', $module->code) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="is_active" value="{{$module->is_active ? '0':'1'}}">
-                                <button type="submit"  class="btn {{$module->is_active ? 'btn-success' : 'btn-secondary'}}">{{$module->is_active ? 'A':'I'}}</button>
-                                {{-- <div class="form-check form-switch">
-                                    <input class="form-check-input toggle-switch" type="checkbox" id="is_active" name="is_active"
-                                        {{ $module->is_active ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="is_active">Active</label>
-                                </div> --}}
+                                <input type="hidden" name="is_active" value="{{ $module->is_active ? '0' : '1' }}">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" onchange="this.form.submit()" {{ $module->is_active ? 'checked' : '' }}>
+                                    <span class="slider"></span>
+                                </label>
                             </form>
                         </td>
+                        
                         {{-- <td>{{ $module->is_active ? 'Active' : 'Inactive' }}</td> --}}
                         <td>
                             <a href="{{ route('modules.edit', ['code'=> $module->code] ) }}" class="btn btn-primary">Edit</a>
@@ -83,12 +82,13 @@ $configData = Helper::appClasses();
                                         <td>
                                             <form action="{{ route('modules.toggleActive', $subModule->code) }}" method="POST">
                                                 @csrf
-                                                <input type="hidden" name="is_active" value="{{ $module->is_active && $subModule->is_active ? '1' : '0' }}">
-                                                <button type="submit" class="btn {{ $module->is_active && $subModule->is_active ? 'btn-success' : 'btn-secondary' }}">
-                                                    {{ $module->is_active && $subModule->is_active ? 'A' : 'I' }}
-                                                </button>
+                                                <label class="toggle-switch">
+                                                    <input type="checkbox" name="is_active" onchange="this.form.submit()" {{ $module->is_active && $subModule->is_active ? 'checked' : '' }}>
+                                                    <span class="slider"></span>
+                                                </label>
                                             </form>
                                         </td>
+                                        
                                         
                                         
                                         {{-- <td>{{ $subModule->is_active ? 'Active' : 'Inactive' }}</td> --}}
