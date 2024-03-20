@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description', 255)->nullable();
             $table->string('parent_module_code', 8)->nullable();
             $table->foreign('parent_module_code')->references('code')->on('modules')->onDelete('cascade');
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(false);
             $table->timestamps();
         });
     }

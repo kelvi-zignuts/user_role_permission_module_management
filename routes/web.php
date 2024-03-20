@@ -37,6 +37,7 @@ Route::middleware('api')->group(function () use ($controller_path) {
     Route::get('/modules', [ModuleController::class, 'index'])->name('modules-index');
     Route::get('/modules/edit/{code}', [ModuleController::class, 'edit'])->name('modules.edit');
     Route::put('/modules/{code}', [ModuleController::class, 'update'])->name('modules.update');
+    Route::post('/modules/{code}/toggle-active', [ModuleController::class, 'toggleActive'])->name('modules.toggleActive');
     // Route::put('/modules/{moduleId}', [ModuleController::class, 'update'])->name('modules.update');
 
 

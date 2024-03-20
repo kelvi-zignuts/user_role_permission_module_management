@@ -37,6 +37,7 @@ $configData = Helper::appClasses();
               <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -46,6 +47,18 @@ $configData = Helper::appClasses();
                 <tr>
                     <td>{{ $module->name }}</td>
                     <td>{{ $module->description }}</td>
+                    <td>
+                        <form action="{{route('modules.toggleActive',$module->code)}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="is_active" value="{{$module->is_active ? '0':'1'}}">
+                            <button type="submit"  class="btn {{$module->is_active ? 'btn-success' : 'btn-secondary'}}">{{$module->is_active ? 'A':'I'}}</button>
+                            {{-- <div class="form-check form-switch">
+                                <input class="form-check-input toggle-switch" type="checkbox" id="is_active" name="is_active"
+                                    {{ $module->is_active ? 'checked' : '' }}>
+                                <label class="form-check-label" for="is_active">Active</label>
+                            </div> --}}
+                        </form>
+                    </td>
                     <td>
                         {{-- <a href="{{ route('modules.edit', ['code' => $module->code]) }}">Edit</a> --}}
                         {{-- @dd($module->code) --}}
