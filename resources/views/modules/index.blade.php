@@ -59,11 +59,17 @@ $configData = Helper::appClasses();
                         <form action="{{ route('modules.toggleActive', $module->code) }}" method="POST">
                             @csrf
                             <input type="hidden" name="is_active" value="{{ $module->is_active ? '0' : '1' }}">
-                            <label class="toggle-switch">
-                                <input type="checkbox" onchange="submit()" {{ $module->is_active ? 'checked' : '' }}>
+                            <div class="form-check form-switch mb-2">
+                            <label class="toggle-switch" >
+                                <input class="form-check-input" type="checkbox" onchange="submit()" {{ $module->is_active ? 'checked' : '' }}>
                                 <span class="slider"></span>
                             </label>
+                        </div>
                         </form>
+                         
+                            {{-- <input type="checkbox" > --}}
+                            {{-- <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label> --}}
+                       
                     </td>
                     <td>
                         <a href="{{ route('modules.edit', ['code'=> $module->code] ) }}" class="btn btn-primary">Edit</a>
@@ -80,10 +86,16 @@ $configData = Helper::appClasses();
                                     <td>
                                         <form action="{{ route('modules.toggleActive', $subModule->code) }}" method="POST">
                                             @csrf
-                                            <label class="toggle-switch">
+                                            <div class="form-check form-switch mb-2">
+                                                <label class="toggle-switch">
+                                                    <input class="form-check-input" name="is_active" type="checkbox" onchange="submit()" {{ $module->is_active && $subModule->is_active ? 'checked' : '' }}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </div>
+                                            {{-- <label class="toggle-switch">
                                                 <input type="checkbox" name="is_active" onchange="submit()" {{ $module->is_active && $subModule->is_active ? 'checked' : '' }}>
                                                 <span class="slider"></span>
-                                            </label>
+                                            </label> --}}
                                         </form>
                                     </td>
                                     <td>
