@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\PermissionController;
 // use App\Http\Controllers\pages\HomePage;
 // use App\Http\Controllers\authentications\LoginBasic;
 
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () use ($controller_path) {
     Route::put('/modules/{code}', [ModuleController::class, 'update'])->name('modules.update');
     Route::post('/modules/{code}/toggle-active', [ModuleController::class, 'toggleActive'])->name('modules.toggleActive');
     // Route::put('/modules/{moduleId}', [ModuleController::class, 'update'])->name('modules.update');
+    
+    Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions-index');
 
 
 });

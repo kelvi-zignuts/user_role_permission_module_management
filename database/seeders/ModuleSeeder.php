@@ -29,42 +29,6 @@ class ModuleSeeder extends Seeder
                 'parent_module_code' => null,
                 'is_active' => 0,
             ],
-            [
-                'code' => 'das',
-                'name' => 'Dashboard',
-                'description' => 'Main module for contacts',
-                'parent_module_code' => null,
-                'is_active' => 0,
-            ],
-            [
-                'code' => 'mom',
-                'name' => 'Module Management',
-                'description' => 'Main module for contacts',
-                'parent_module_code' => null,
-                'is_active' => 0,
-            ],
-            [
-                'code' => 'per',
-                'name' => 'Permission Management',
-                'description' => 'Main module for contacts',
-                'parent_module_code' => null,
-                'is_active' => 0,
-            ],
-            [
-                'code' => 'rol',
-                'name' => 'Role Management',
-                'description' => 'Main module for contacts',
-                'parent_module_code' => null,
-                'is_active' => 0,
-            ],
-            [
-                'code' => 'usr',
-                'name' => 'User Management',
-                'description' => 'Main module for contacts',
-                'parent_module_code' => null,
-                'is_active' => 0,
-            ],
-    
             // Sub modules for Contact
             [
                 'code' => 'com',

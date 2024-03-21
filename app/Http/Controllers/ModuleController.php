@@ -37,6 +37,8 @@ class ModuleController extends Controller
 
     // Fetch modules
     $modules = $query->get();
+   
+    // $totalModulesCount = $query->count();
 
     // Pass modules, filter, and search to the view
     return view('modules.index', compact('modules', 'filter', 'searchfilter'));

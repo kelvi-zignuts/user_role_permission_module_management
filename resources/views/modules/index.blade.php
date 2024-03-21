@@ -60,16 +60,12 @@ $configData = Helper::appClasses();
                             @csrf
                             <input type="hidden" name="is_active" value="{{ $module->is_active ? '0' : '1' }}">
                             <div class="form-check form-switch mb-2">
-                            <label class="toggle-switch" >
-                                <input class="form-check-input" type="checkbox" onchange="submit()" {{ $module->is_active ? 'checked' : '' }}>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
+                                <label class="toggle-switch">
+                                    <input class="form-check-input" type="checkbox" onchange="submit()" {{ $module->is_active ? 'checked' : '' }}>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
                         </form>
-                         
-                            {{-- <input type="checkbox" > --}}
-                            {{-- <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label> --}}
-                       
                     </td>
                     <td>
                         <a href="{{ route('modules.edit', ['code'=> $module->code] ) }}" class="btn btn-primary">Edit</a>
@@ -80,6 +76,7 @@ $configData = Helper::appClasses();
                         <table class="table">
                             <tbody>
                                 @foreach ($module->subModules as $subModule)
+                                {{-- @if (stripos($subModule->name, $searchfilter) !== false || stripos($subModule->description, $searchfilter) !== false) --}}
                                 <tr>
                                     <td>{{ $subModule->name }}</td>
                                     <td>{{ $subModule->description }}</td>
@@ -92,16 +89,14 @@ $configData = Helper::appClasses();
                                                     <span class="slider"></span>
                                                 </label>
                                             </div>
-                                            {{-- <label class="toggle-switch">
-                                                <input type="checkbox" name="is_active" onchange="submit()" {{ $module->is_active && $subModule->is_active ? 'checked' : '' }}>
-                                                <span class="slider"></span>
-                                            </label> --}}
+                                           
                                         </form>
                                     </td>
                                     <td>
                                         <a href="{{ route('modules.edit', ['code'=> $subModule->code] ) }}" class="btn btn-primary">Edit</a>
                                     </td>
                                 </tr>
+                                {{-- @endif --}}
                                 @endforeach
                             </tbody>
                         </table>

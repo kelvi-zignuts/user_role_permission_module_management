@@ -13,11 +13,10 @@
       "slug": "modules-index"
     },
     {
-      "url": "pages/misc-error",
-      "name": "Permissions",
+      "url": "permissions",
+      "name":"permissions",
       "icon": "menu-icon tf-icons ti ti-alert-triangle",
-      "slug": "pages-misc-error",
-      "target": "_blank"
+      "slug": "permissions"
     },
     {
       "url": "auth/login-basic",
