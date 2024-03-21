@@ -13,22 +13,31 @@ class ModuleController extends Controller
     public function index(Request $request)
     {
         $filter = $request->query('filter', 'all');
+        $searchfilter = $request->input('search');
 
-    // Initialize query builder
-    $query = Module::query();
+        // Initialize query builder
+        $query = Module::query();
 
-    // Apply filter conditions
-    if ($filter === 'active') {
-        $query->where('is_active', true);
-    } elseif ($filter === 'inactive') {
-        $query->where('is_active', false);
-    }
+        // Apply filter conditions
+        if ($filter === 'active') {
+            $query->where('is_active', true);
+        } elseif ($filter === 'inactive') {
+            $query->where('is_active', false);
+        }
 
-    // Fetch modules
-    $modules = $query->get();
+        // Apply search condition
+        if ($request->has('search')) {
+            $query->where('name', 'like', "%$searchfilter%");
+            $query->orWhereHas('submodules', function ($q) use ($searchfilter) {
+                $q->where('name', 'like', "%$searchfilter%"); 
+            });
+        }
 
-    // Pass modules to the view
-    return view('modules.index', compact('modules', 'filter'));
+        // Fetch modules
+        $modules = $query->get();
+
+        // Pass modules, filter, and search to the view
+        return view('modules.index', compact('modules', 'filter', 'searchfilter'));
         // $filter = $request->query('filter', 'all');
         // $modules = Module::all();
         // $filter = $request->query('filter');
