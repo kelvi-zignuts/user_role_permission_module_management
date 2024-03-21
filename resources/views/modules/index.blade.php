@@ -20,25 +20,26 @@ $configData = Helper::appClasses();
       <div class="container">
         <div class="row justify-content-end">
             <div class="col-md-6 mb-4">
-                <form action="{{ route('modules-index') }}" method="GET">
+                <form id="filterForm" action="{{ route('modules-index') }}" method="GET">
                     <div class="d-inline-block">
                         <label for="filter" class="form-label">Filter Modules</label>
-                        <select id="filter" name="filter" class="select2 form-select" style="width: 170px; height: 40px;" data-allow-clear="true">
+                        <select id="filter" name="filter" class="select2 form-select" style="width: 150px; height: 40px;" data-allow-clear="true">
                             <option value="all" @if($filter === 'all') selected @endif>All Modules</option>
                             <option value="active" @if($filter === 'active') selected @endif>Active Modules</option>
                             <option value="inactive" @if($filter === 'inactive') selected @endif>Inactive Modules</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    <button type="submit" class="btn btn-primary">Apply </button>
+                    <a href="{{ route('modules-index') }}" class="btn btn-secondary">
+                        <i class="ti ti-x ti-xs me-1"></i> Clear 
+                    </a>
                 </form>
             </div>
         </div>
     </div>
     
     
-    
-    
-    
+
     
     
     <div class="card">
