@@ -13,7 +13,24 @@ class ModuleController extends Controller
     public function index(Request $request)
     {
         $filter = $request->query('filter', 'all');
-        $modules = Module::all();
+
+    // Initialize query builder
+    $query = Module::query();
+
+    // Apply filter conditions
+    if ($filter === 'active') {
+        $query->where('is_active', true);
+    } elseif ($filter === 'inactive') {
+        $query->where('is_active', false);
+    }
+
+    // Fetch modules
+    $modules = $query->get();
+
+    // Pass modules to the view
+    return view('modules.index', compact('modules', 'filter'));
+        // $filter = $request->query('filter', 'all');
+        // $modules = Module::all();
         // $filter = $request->query('filter');
         // switch ($filter) {
         //     case 'active':
@@ -27,7 +44,7 @@ class ModuleController extends Controller
         //         break;
         // }
 
-        return view('modules.index', compact('modules'));
+        // return view('modules.index', compact('modules'));
     }
     public function edit($code)
     {

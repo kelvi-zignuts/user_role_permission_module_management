@@ -17,6 +17,30 @@ $configData = Helper::appClasses();
           <span class="switch-label">Save card for future billing?</span>
         </label>
       </div> --}}
+      <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-md-6 mb-4">
+                <form action="{{ route('modules-index') }}" method="GET">
+                    <div class="d-inline-block">
+                        <label for="filter" class="form-label">Filter Modules</label>
+                        <select id="filter" name="filter" class="select2 form-select" style="width: 170px; height: 40px;" data-allow-clear="true">
+                            <option value="all" @if($filter === 'all') selected @endif>All Modules</option>
+                            <option value="active" @if($filter === 'active') selected @endif>Active Modules</option>
+                            <option value="inactive" @if($filter === 'inactive') selected @endif>Inactive Modules</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
     <div class="card">
         <h5 class="card-header">Modules</h5>
         <div class="card-datatable table-responsive">
