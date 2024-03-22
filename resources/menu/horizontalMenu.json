@@ -19,6 +19,12 @@
       "slug": "permissions"
     },
     {
+      "url": "roles",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "name":"Roles",
+      "slug": "roles-index"
+    },
+    {
       "url": "auth/login-basic",
       "name": "Login",
       "icon": "menu-icon tf-icons ti ti-login",

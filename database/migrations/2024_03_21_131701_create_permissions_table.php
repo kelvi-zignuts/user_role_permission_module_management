@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 64);
             $table->string('description', 255)->nullable();
-            $table->tinyInteger('is_active')->default(1); 
+            $table->tinyInteger('is_active')->default(0); 
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permissions_');
+        Schema::dropIfExists('permissions');
     }
 };

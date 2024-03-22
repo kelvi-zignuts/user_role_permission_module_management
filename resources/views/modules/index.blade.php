@@ -36,7 +36,6 @@ $configData = Helper::appClasses();
     </div>
 </div>
 
-
 <div class="card">
     <h5 class="card-header">Modules</h5>
     <div class="card-datatable table-responsive">

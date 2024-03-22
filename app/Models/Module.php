@@ -16,6 +16,11 @@ class Module extends Model
     {
         return $this->hasMany(Module::class, 'parent_module_code', 'code');
     }
+    
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permissions_module')->withPivot(['create', 'edit', 'view', 'delete']);
+    }
     // public function parentModule()
     // {
     //     return $this->belongsTo(Module::class, 'parent_module_code');

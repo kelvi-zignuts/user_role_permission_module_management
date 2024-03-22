@@ -18,7 +18,7 @@ $configData = Helper::appClasses();
             <div class="card-body">
                 <form action="{{ route('modules.update', $module->code) }}" method="POST">
                     @csrf
-                    @method('PUT')
+                    {{-- @method('PUT') --}}
                     <div class="mb-3">
                         <label for="name" class="form-label">Name:</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ $module->name }}">
