@@ -92,17 +92,6 @@ class ModuleController extends Controller
         }
         
         return redirect()->back()->with('success', 'Module status updated successfully.');
-    
-    //     $request->validate([
-    //         'is_active' => 'required|boolean',
-    //     ]);
-
-    //     $module = Module::findOrFail($code);
-    //     $module->update([
-    //         'is_active' => $request->input('is_active'),
-    //     ]);
-
-    //     return redirect()->back()->with('success', 'Module status updated successfully.');
     }
 
 }

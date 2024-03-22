@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PermissionController;
 // use App\Http\Controllers\pages\HomePage;
@@ -61,6 +62,17 @@ Route::middleware('auth')->group(function () use ($controller_path) {
         Route::post('/{permission}/update', [PermissionController::class, 'update'])->name('permissions.update');
 
         Route::post('/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+
+
+    });
+
+    Route::prefix('roles')->group(function () {
+        Route::get('/', [RoleController::class, 'index'])->name('roles-index');
+        Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
+        Route::post('/store', [RoleController::class, 'store'])->name('roles.store');
+        // Route::post('/{id}/toggle-active', [RoleController::class, 'toggleActive'])->name('role.toggleActive');
+        Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+        Route::post('/{role}/update', [RoleController::class, 'update'])->name('roles.update');
 
 
     });
