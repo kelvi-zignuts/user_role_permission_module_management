@@ -83,6 +83,16 @@
                             </div>
                         </form>
                     </td>
+                    {{-- <td>
+                        <form action="{{ route('permissions.toggleActive', $permission->id) }}" method="Post">
+                            @csrf
+                            <input type="hidden" name="is_active" value="{{ $permission->is_active ? '0' : '1' }}">
+                            <div class="form-check form-switch mb-2">
+                                <input id="togglePermission_{{ $permission->id }}" class="form-check-input toggle-role" type="checkbox" data-permission-id="{{ $permission->id }}" {{ $permission->is_active ? 'checked' : '' }} >
+                                <label class="form-check-label" for="togglePermission_{{ $permission->id }}"></label>
+                            </div>
+                        </form>
+                    </td> --}}
                     <td>
                         <div class="d-flex">
                             <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-primary me-2">Edit</a>
@@ -98,4 +108,5 @@
         </table>
     </div>
 </div>
+
 @endsection

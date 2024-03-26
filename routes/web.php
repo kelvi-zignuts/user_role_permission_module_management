@@ -70,9 +70,13 @@ Route::middleware('auth')->group(function () use ($controller_path) {
         Route::get('/', [RoleController::class, 'index'])->name('roles-index');
         Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
         Route::post('/store', [RoleController::class, 'store'])->name('roles.store');
+        Route::post('/{id}/toggle-active', [RoleController::class, 'toggleActive'])->name('roles.toggleActive');
+        // Route::post('/{role}/toggle-active', 'RoleController@toggleActive')->name('roles.toggleActive');
         // Route::post('/{id}/toggle-active', [RoleController::class, 'toggleActive'])->name('role.toggleActive');
         Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
         Route::post('/{role}/update', [RoleController::class, 'update'])->name('roles.update');
+        Route::post('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
 
 
     });

@@ -5,8 +5,6 @@
 @section('content')
 
 <div class="container">
-    <!-- Search form -->
-    <!-- Your search form HTML code here -->
 </div>
 <div class="container">
     <div class="row mb-3">
@@ -71,29 +69,28 @@
                 <tr>
                     <td>{{ $role->name }}</td>
                     <td>{{ $role->description }}</td>
-                    <td>{{ $role->is_active ? 'Active' : 'Inactive' }}</td>
                     <td>
-                        <form action="" method="Post">
+                        <form action="{{ route('roles.toggleActive', $role->id) }}" method="Post">
                             @csrf
-                            <input type="hidden" name="is_active" value="">
+                            <input type="hidden" name="is_active" value="{{ $role->is_active ? '0' : '1' }}">
                             <div class="form-check form-switch mb-2">
                                 <label class="toggle-switch">
-                                    <input class="form-check-input" type="checkbox">
+                                    <input class="form-check-input" type="checkbox" onchange="this.form.submit()" {{ $role->is_active ? 'checked' : '' }}>
                                     <span class="slider"></span>
                                 </label>
                             </div>
                         </form>
                     </td>
+                    
                     <td>
-                        <!-- Add action buttons here -->
-                        <!-- For example, edit and delete buttons -->
-                        <a href="{{route('roles.edit', ['role' => $role->id])}}" class="btn btn-primary">Edit</a>
+                        <div class="d-flex">
+                        <a href="{{route('roles.edit', ['role' => $role->id])}}" class="btn btn-primary  me-2">Edit</a>
                         <!-- Add a form for delete action -->
-                        <form action="" method="POST" style="display: inline-block;">
+                        <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
                             @csrf
                             {{-- @method('DELETE') --}}
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this permission?')">Delete</button>
+                        </form>   
                     </td>
                 </tr>
                 @endforeach

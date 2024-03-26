@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+// use Illuminate\Support\Str;
 
 class RoleController extends Controller
 {
@@ -30,24 +31,28 @@ class RoleController extends Controller
   }
   public function create()
   {
-      
-      return view('roles.create');
+    $permissions = Permission::all();
+      return view('roles.create', compact('permissions'));
       // return view('permissions.create'); 
   }
   public function store(Request $request)
     {
         // Validate the incoming request data
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:64',
             'description' => 'nullable|string|max:255',
+            'permissions' => 'required|array',
         ]);
-
-        $validatedData['id'] = Str::uuid();
-
+    
+        // Extract only the specified fields from the request
+        $roleData = $request->only(['name', 'description']);
+    
         // Create a new role instance and save it to the database
-        $role = Role::create($validatedData);
-
-        // Redirect back with a success message
+        $role = Role::create($roleData);
+    
+        // Attach permissions to the role
+        $role->permissions()->attach($request->input('permissions'));
+    
         return redirect()->route('roles-index')->with('success', 'Role created successfully!');
     }
     public function edit(Role $role)
@@ -66,11 +71,22 @@ class RoleController extends Controller
 
         return redirect()->route('roles-index')->with('success', 'Role updated successfully!');
     }
-    // public function toggleActive($id)
-    // {
-    //     $role = Role::where($id)->firstOrFail();
-        
-    //     $role->update(['is_active' => !$role->is_active]);
-    //     return redirect()->back()->with('success', 'Role status updated successfully.');
-    // }
+
+    public function toggleActive($id)
+    {
+        $role = Role::findOrFail($id);
+        $role->update(['is_active' => !$role->is_active]);
+    
+        return redirect()->back()->with('success', 'Permission status updated successfully.');
+    }
+    public function destroy(Role $role)
+{
+    // Delete the role
+    $role->delete();
+
+    // Redirect back with a success message
+    return redirect()->route('roles-index')->with('success', 'Role deleted successfully!');
+}
+
+
 }
