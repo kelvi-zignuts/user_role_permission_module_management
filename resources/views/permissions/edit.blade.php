@@ -38,31 +38,35 @@
                         </thead>
                         <tbody>
                             @foreach($modules as $module)
+                            @if(in_array($module['code'], $selectedPermissions))
                                 <tr>
                                     <td class="text-nowrap fw-semibold">{{ $module['name'] }}</td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][create]" id="createPermission{{ $module['code'] }} ">
+                                            {{-- <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][create]" id="createPermission{{ $module['code'] }} "> --}}
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][create]" id="createPermission{{ $module['code'] }}" checked>
+
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][edit]" id="editPermission{{ $module['code'] }} ">
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][edit]" id="editPermission{{ $module['code'] }}" checked>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][view]" id="viewPermission{{ $module['code'] }}">
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][view]" id="viewPermission{{ $module['code'] }}" checked>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][delete]" id="deletePermission{{ $module['code'] }}">
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][delete]" id="deletePermission{{ $module['code'] }}" checked>
                                         </div>
                                     </td>
                                 </tr>
                                 @if(isset($module['submodules']) && count($module['submodules']) > 0)
                                     @foreach($module['submodules'] as $submodule)
+                                    @if(in_array($submodule['code'], $selectedPermissions))
                                     <tr>
                                         <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $submodule->name }}</td>
                                         <td>
@@ -86,7 +90,9 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    @endif
                                     @endforeach
+                                @endif
                                 @endif
                             @endforeach
                         </tbody>

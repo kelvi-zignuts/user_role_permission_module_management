@@ -27,12 +27,19 @@ class PermissionController extends Controller
     // $permissions = Permission::all();
     return view('permissions.index', ['permissions' => $permissions,'filter'=>$filter,'searchfilter'=>$searchfilter]);
     }
+    // public function create()
+    // {
+    //     $modules = Module::whereNull('parent_module_code')->with('submodules')->get();
+    //     return view('permissions.create', compact('modules'));
+    //     // return view('permissions.create'); 
+    // }
     public function create()
-    {
-        $modules = Module::whereNull('parent_module_code')->with('submodules')->get();
-        return view('permissions.create', compact('modules'));
-        // return view('permissions.create'); 
-    }
+{
+    $modules = Module::whereNull('parent_module_code')->with('submodules')->get();
+    $selectedPermissions = []; // Retrieve the selected permissions from the database or session
+    return view('permissions.create', compact('modules', 'selectedPermissions'));
+}
+
     public function store(Request $request)
 {
     // Validate the request data
@@ -64,13 +71,22 @@ class PermissionController extends Controller
     return redirect()->route('permissions-index')->with('success', 'Permissions created successfully');
 }
 
-    public function edit(Permission $permission)
-    {
-        // Fetch modules or any other data required for the form
+    // public function edit(Permission $permission)
+    // {
+    //     // Fetch modules or any other data required for the form
         
-        $modules = Module::whereNull('parent_module_code')->with('submodules')->get();
-        return view('permissions.edit', compact('permission','modules'));
-    }
+    //     $modules = Module::whereNull('parent_module_code')->with('submodules')->get();
+    //     return view('permissions.edit', compact('permission','modules'));
+    // }
+    public function edit(Permission $permission)
+{
+    // Fetch modules or any other data required for the form
+    $modules = Module::whereNull('parent_module_code')->with('submodules')->get();
+    $selectedPermissions = $permission->modules->pluck('code')->toArray(); // Get selected module codes
+    
+    return view('permissions.edit', compact('permission', 'modules', 'selectedPermissions'));
+}
+
 
     public function update(Request $request, Permission $permission)
     {
