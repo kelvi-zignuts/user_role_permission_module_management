@@ -114,15 +114,20 @@
                                                     class="ti ti-trash me-1"></i>Delete</button>
                                             {{-- <a class="dropdown-item"><i class="ti ti-trash me-1"></i> Delete</a> --}}
                                         </form>
-                                        {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal{{ $user->id }}">
-                                            <i class="ti ti-key me-1"></i> Reset Password
-                                        </a> --}}
                                         <a href="#" data-bs-target="#addRoleModal" data-bs-toggle="modal"
-                                            class="btn mb-2 text-nowrap dropdown-item reset-password-btn">
+                                            class="btn mb-2 text-nowrap dropdown-item reset-password-btn"
+                                            data-user-email="{{ $user->email }}">
                                             <img src="https://cdn-icons-png.flaticon.com/128/10480/10480728.png"
                                                 width="20px" alt="">
                                             &nbsp; New Password
                                         </a>
+                                        <form action="{{ route('users.force-logout', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to force logout and delete this user?')">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="ti ti-trash me-1"></i>Force Logout
+                                            </button>
+                                        </form>
+                                        
                                     </div>
                                 </div>
                             </td>
@@ -154,22 +159,52 @@
                     </div>
                     <form method="POST" action="{{ route('users.resetpasswordform') }}">
                         @csrf
-                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        {{-- @dd($user) --}}
+                        <input type="hidden" name="id" id="userId" value="{{ $user->id }}">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            {{-- <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required readonly> --}}
+                            <input type="email" class="form-control" id="email" name="email" required readonly>
+
+                        </div>
+                        {{-- <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="userEmail" name="email" required readonly>
+                        </div> --}}
                         <div class="mb-3">
                             <label for="new_password" class="form-label">New Password</label>
                             <input type="password" class="form-control" id="new_password" name="password" required>
                         </div>
                         <div class="mb-3">
                             <label for="confirm_password" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirm_password" name="password_confirmation" required>
+                            <input type="password" class="form-control" id="confirm_password"
+                                name="password_confirmation" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Reset Password</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
     </div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var resetButtons = document.querySelectorAll('.reset-password-btn');
+            resetButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var userEmail = this.getAttribute('data-user-email');
+                    var emailInput = document.getElementById('email');
+                    emailInput.value = userEmail;
+                });
+            });
+        });
+    </script>
+    {{-- <script>
+        // Function to set email and user ID in the reset password form
+        function setUserDetails(userId, userEmail) {
+            document.getElementById('userId').value = userId;
+            document.getElementById('userEmail').value = userEmail;
+        }
+    </script> --}}
 
 @endsection

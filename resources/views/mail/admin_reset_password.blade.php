@@ -6,8 +6,9 @@
     <title>Password Reset</title>
 </head>
 <body>
-    <p>Hello {{ $user->first_name }},</p>
-    <p>You have requested a password reset. Your new password is: {{ $password }}</p>
-    <p>Please log in and change your password after logging in.</p>
+    <p>Hello {{ $user->name }},</p>
+    <p>Your password has been reset successfully. Your new password is: {{ $password }}</p>
+    <p><a href="{{ route('auth-login-basic') }}">Log In</a></p>
+    <p>Thank you!</p>
 </body>
 </html>

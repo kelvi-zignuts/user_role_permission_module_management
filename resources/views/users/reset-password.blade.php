@@ -129,7 +129,7 @@ $customizerHidden = 'customizer-hide';
           </div>
           <!-- /Logo -->
           <h4 class="mb-1 pt-2">Reset Password 🔒</h4>
-          {{-- <p class="mb-4">for <span class="fw-bold"><span>{{ $email }}</span> --}}
+          <p class="mb-4">for <span class="fw-bold"><span>{{ $email }}</span>
 </span></p>
           <form action="{{ route('users.resetpassword') }}" method="POST">
             @csrf
@@ -163,6 +163,15 @@ $customizerHidden = 'customizer-hide';
               </a>
             </div>
           </form>
+          {{-- <form method="POST" action="{{ route('password.update') }}">
+            @csrf
+            <input type="hidden" name="token" value="{{ $token }}">
+            <input type="email" name="email" value="{{ $email }}" required>
+            <input type="password" name="password" required>
+            <input type="password" name="password_confirmation" required>
+            <button type="submit">Reset Password</button>
+          </form>
+           --}}
         </div>
       </div>
       <!-- /Reset Password -->

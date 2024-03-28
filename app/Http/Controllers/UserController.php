@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Mail\UserInvitation;
 use Illuminate\Http\Request;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
@@ -152,51 +155,53 @@ public function destroy(User $user)
         $user->password = bcrypt($request->password);
         $user->save();
 
-        // Mail::to($user->email)->send(new UserInvitation($user, $request->password));
+        Mail::to($user->email)->send(new UserInvitation($user, $request->password));
         
         // Redirect user to dashboard or wherever you want
         return redirect()->route('auth-login-basic')->with('success', 'Password reset successfully!');
     }
-
-    // public function resetPassword(Request $request)
-    // {
-    //     // Validate request
-    //     $request->validate([
-    //         'id'=> 'required|exists:users,id',
-    //         // 'email' => 'required|email|exists:users,email',
-    //         'password' => 'required|string|min:8|confirmed',
-    //     ]);
-    //     // Find the user by email
-    //     // $user = User::where('email', $request->email)->first();
-
-    //     $user = User::findOrFail($request->id);
-    //     // Set user's password
-    //     $user->password = bcrypt($request->password);
-    //     $user->save();
-
-    //     // Mail::to($user->email)->send(new UserInvitation($user, $request->password));
-        
-    //     // Redirect user to dashboard or wherever you want
-    //     return redirect()->route('auth-login-basic')->with('success', 'Password reset successfully!');
-    // }
-    public function resetPasswordform(Request $request)
+public function resetPasswordform(Request $request)
 {
-    // Validate request
     $request->validate([
-        'user_id' => 'required|exists:users,id',
+        'id' => 'required',
+        'email' => 'required|email|exists:users,email',
         'password' => 'required|string|min:8|confirmed',
     ]);
 
-    // Find the user
-    $user = User::findOrFail($request->user_id);
+    // Retrieve user by email
+    $user = User::where('email', $request->email)->first();
 
-    // Update user's password
-    $user->password = bcrypt($request->password);
-    $user->save();
+    // Update user's password if the user is found
+    if ($user) {
+        $user->password = bcrypt($request->password);
+        $user->save();
 
-    // Redirect back with a success message
-    return redirect()->route('users-index')->with('success', 'Password reset successfully!');
+        // Mail::to($user->email)->send(new ResetPasswordMail($user, $request->password));
+
+        $fromAddress = 'admin@gmail.com';
+        
+        Mail::to($user->email)->send(new ResetPasswordMail($user, $request->password))->from($fromAddress);
+        
+        return redirect()->route('users-index')->with('success', 'Password reset successfully!');
+    } else {
+        return redirect()->back()->with('error', 'User not found!');
+    }
 }
+// public function forcelogout(User $user)
+// {
+//     // Delete the role
+//     DB::table('users')->where('user_id', $userId)->delete();
+
+//     // Redirect back with a success message
+//     return redirect()->route('users-index')->with('success', 'Role deleted successfully!');
+// }
+public function forceLogout($id)
+{
+    // Delete the user from the database
+    DB::table('users')->where('id', $id)->delete();
+    return redirect()->route('users-index')->with('success', 'User forcefully logged out and deleted successfully.');
+}
+
 
 
 }

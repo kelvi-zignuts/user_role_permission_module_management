@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\authentications\ForgotPasswordController;
 // use App\Http\Controllers\pages\HomePage;
 // use App\Http\Controllers\authentications\LoginBasic;
 
@@ -26,6 +27,20 @@ $controller_path = 'App\Http\Controllers';
 Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
 Route::post('/auth/login-basic', $controller_path . '\authentications\LoginBasic@login')->name('login');
 
+Route::get('/auth/forgot-password', [ForgotPasswordController::class, 'index'])->name('auth-reset-password');
+Route::post('/auth/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::post('/auth/reset-password', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('users.resetpasswordform');
+Route::post('/auth/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('users.resetpassword');
+
+// routes/web.php
+// Route::get('/forgot-password', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+// Route::post('/forgot-password', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+// // routes/web.php
+// Route::get('/reset-password/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+// Route::post('/reset-password', 'ResetPasswordController@reset')->name('password.update');
+
+
+
 Route::get('/auth/reset-password', [UserController::class, 'showResetPasswordForm'])->name('users.resetpasswordform');
 Route::post('/auth/reset-password', [UserController::class, 'resetPassword'])->name('users.resetpassword');
 
@@ -37,6 +52,7 @@ Route::post('/auth/reset-password', [UserController::class, 'resetPassword'])->n
 
 // Main Page Route
 Route::middleware('auth')->group(function () use ($controller_path) {
+    
     // Main Page Route
     Route::get('/', $controller_path . '\pages\HomePage@index')->name('pages-home');
     // Route::get('/modules', $controller_path . '\modules\ModuleController@index')->name('modules-index');
@@ -94,11 +110,14 @@ Route::middleware('auth')->group(function () use ($controller_path) {
         Route::post('/{user}/update', [UserController::class,'update'])->name('users.update');
         Route::post('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
-        Route::post('/users/resetpasswordform', [UserController::class, 'resetPasswordform'])->name('users.resetpasswordform');
-
+        
+        // Route::post('/resetpasswordform', [UserController::class, 'resetPasswordform'])->name('users.resetpasswordform');
+        Route::post('/resetpasswordform', [UserController::class, 'resetPasswordform'])->name('users.resetpasswordform');
+        Route::post('/force-logout/{id}', [UserController::class, 'forceLogout'])->name('users.force-logout');
         // Route::get('/{user}/reset-password', [UserController::class, 'showResetPasswordForm'])->name('users.resetpasswordform');
         // Route::post('/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.resetpassword');
     });
+
 
 
 });
