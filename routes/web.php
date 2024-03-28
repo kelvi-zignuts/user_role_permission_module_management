@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PermissionController;
 // use App\Http\Controllers\pages\HomePage;
@@ -24,6 +25,12 @@ $controller_path = 'App\Http\Controllers';
 // authentication
 Route::get('/auth/login-basic', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
 Route::post('/auth/login-basic', $controller_path . '\authentications\LoginBasic@login')->name('login');
+
+Route::get('/auth/reset-password', [UserController::class, 'showResetPasswordForm'])->name('users.resetpasswordform');
+Route::post('/auth/reset-password', [UserController::class, 'resetPassword'])->name('users.resetpassword');
+
+// Route::get('/', $controller_path . '\pages\HomePage@index')->name('pages-home');
+
 // Route::get('/auth/login-basic', [LoginBasicController::class, 'index'])->name('auth-login-form');
 
 // Route::get('/auth/register-basic', $controller_path . '\authentications\RegisterBasic@index')->name('auth-register-basic');
@@ -75,7 +82,20 @@ Route::middleware('auth')->group(function () use ($controller_path) {
         // Route::post('/{id}/toggle-active', [RoleController::class, 'toggleActive'])->name('role.toggleActive');
         Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
         Route::post('/{role}/update', [RoleController::class, 'update'])->name('roles.update');
-        Route::post('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+        Route::post('/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    });
+
+    Route::prefix('users')->group(function (){
+        Route::get('/', [UserController::class, 'index'])->name('users-index');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/store', [UserController::class, 'store'])->name('users.store');
+        Route::post('/{id}/toggle-active', [UserController::class, 'toggleActive'])->name('users.toggleActive');
+        Route::get('/{user}/edit', [UserController::class,'edit'])->name('users.edit');
+        Route::post('/{user}/update', [UserController::class,'update'])->name('users.update');
+        Route::post('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+        // Route::get('/{user}/reset-password', [UserController::class, 'showResetPasswordForm'])->name('users.resetpasswordform');
+        // Route::post('/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.resetpassword');
 
 
 

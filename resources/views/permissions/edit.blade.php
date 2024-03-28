@@ -37,64 +37,61 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($modules as $module)
-                            @if(in_array($module['code'], $selectedPermissions))
+                            {{-- @dd($selectedPermissions) --}}
+                            @foreach($selectedPermissions as $module)
+                            {{-- @if(isset($module['submodules']) && count($module['submodules']) > 0) --}}
+                            {{-- @dd($module->pivot->edit) --}}
                                 <tr>
-                                    <td class="text-nowrap fw-semibold">{{ $module['name'] }}</td>
+                                    <td class="text-nowrap fw-semibold">{{ $module->name }}</td>
                                     <td>
                                         <div class="form-check">
-                                            {{-- <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][create]" id="createPermission{{ $module['code'] }} "> --}}
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][create]" id="createPermission{{ $module['code'] }}" checked>
-
+                                            {{-- <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][create]" id="createPermission{{ $module['code'] }}" {{ in_array($module['code'], $selectedPermissions) && $permission->hasAccess($module['code'], 'create') ? '1' : '' }}> --}}
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module->code }}][create]"  {{ $module->pivot->create ? 'checked' : ''}}>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][edit]" id="editPermission{{ $module['code'] }}" checked>
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module->code }}][edit]"  {{ $module->pivot->edit ? 'checked' : ''}}>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][view]" id="viewPermission{{ $module['code'] }}" checked>
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module->code }}][view]"  {{ $module->pivot->view ? 'checked' : ''}}>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module['code'] }}][delete]" id="deletePermission{{ $module['code'] }}" checked>
+                                            <input class="form-check-input" type="checkbox" name="permissions[{{ $module->code }}][delete]"  {{ $module->pivot->delete ? 'checked' : ''}}>
                                         </div>
                                     </td>
                                 </tr>
-                                @if(isset($module['submodules']) && count($module['submodules']) > 0)
-                                    @foreach($module['submodules'] as $submodule)
-                                    @if(in_array($submodule['code'], $selectedPermissions))
-                                    <tr>
-                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $submodule->name }}</td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][create]" id="createPermission{{ $submodule['code'] }}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][edit]" id="editPermission{{ $submodule['code'] }}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][view]" id="viewPermission{{ $submodule['code'] }}">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][delete]" id="deletePermission{{ $submodule['code'] }}">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endif
+                                    {{-- @foreach($module['submodules'] as $submodule)
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $submodule->name }}</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][create]" {{ $module->pivot->create ? 'checked' : '' }}>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][edit]" {{ $module->pivot->edit ? 'checked' : ''}}>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][view]" {{ $module->pivot->view ? 'checked' : ''}}>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="permissions[{{ $submodule['code'] }}][delete]"  {{ $module->pivot->delete ? 'checked' : ''}}>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach --}}
+                                    {{-- @endif --}}
                                     @endforeach
-                                @endif
-                                @endif
-                            @endforeach
                         </tbody>
                         
                     </table>

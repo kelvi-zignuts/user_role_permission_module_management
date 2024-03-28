@@ -25,6 +25,12 @@
       "slug": "roles-index"
     },
     {
+      "url": "users",
+      "icon": "menu-icon tf-icons ti ti-file",
+      "name":"Users",
+      "slug": "users-index"
+    },
+    {
       "url": "auth/login-basic",
       "name": "Login",
       "icon": "menu-icon tf-icons ti ti-login",

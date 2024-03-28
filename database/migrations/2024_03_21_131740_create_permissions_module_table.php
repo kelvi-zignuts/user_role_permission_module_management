@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('permissions_module', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
             // Change the type and attributes of module_code to match the code column in modules table
             $table->string('module_code', 8);
             $table->unsignedBigInteger('permission_id');

@@ -27,7 +27,6 @@ class RoleController extends Controller
   $roles = $query->get();
   // $permissions = Permission::all();
   return view('roles.index', ['roles' => $roles,'filter'=>$filter,'searchfilter'=>$searchfilter]);
-    return view('');
   }
   public function create()
   {
