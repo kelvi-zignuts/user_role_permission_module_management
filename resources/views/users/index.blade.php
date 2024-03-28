@@ -117,10 +117,12 @@
                                         {{-- <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal{{ $user->id }}">
                                             <i class="ti ti-key me-1"></i> Reset Password
                                         </a> --}}
-                                        <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                            data-bs-target="#resetPasswordModal{{ $user->id }}">
-                                            <i class="ti ti-key me-1"></i> Reset Password
-                                        </button>
+                                        <a href="#" data-bs-target="#addRoleModal" data-bs-toggle="modal"
+                                            class="btn mb-2 text-nowrap dropdown-item reset-password-btn">
+                                            <img src="https://cdn-icons-png.flaticon.com/128/10480/10480728.png"
+                                                width="20px" alt="">
+                                            &nbsp; New Password
+                                        </a>
                                     </div>
                                 </div>
                             </td>
@@ -140,17 +142,17 @@
             </table>
         </div>
     </div>
-    @foreach ($users as $user)
-    <div class="modal fade" id="resetPasswordModal{{ $user->id }}" tabindex="-1" role="dialog"
-        aria-labelledby="resetPasswordModalLabel{{ $user->id }}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="resetPasswordModalLabel{{ $user->id }}">Reset Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+
+    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-add-new-role">
+            <div class="modal-content p-3 p-md-5">
+                <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="modal-body">
-                    <form action="{{ route('users.resetpassword') }}" method="POST">
+                    <div class="text-center mb-4">
+                        <h3 class="role-title mb-2">Set New Password</h3>
+                        <p class="text-muted">Set role permissions</p>
+                    </div>
+                    <form method="POST" action="{{ route('users.resetpasswordform') }}">
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $user->id }}">
                         <div class="mb-3">
@@ -159,15 +161,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="confirm_password" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirm_password"
-                                name="password_confirmation" required>
+                            <input type="password" class="form-control" id="confirm_password" name="password_confirmation" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Reset Password</button>
                     </form>
+                    
                 </div>
             </div>
         </div>
     </div>
-@endforeach
+
 
 @endsection

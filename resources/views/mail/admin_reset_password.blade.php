@@ -1,11 +1,13 @@
-
-
-<p>Hello {{ $user->name }},</p>
-
-<p>Your password has been reset. Here is your new password:</p>
-
-<p><strong>New Password:</strong> {{ $password }}</p>
-
-<p>Please login using your new password and consider changing it to something more memorable.</p>
-
-<p>Thank you.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset</title>
+</head>
+<body>
+    <p>Hello {{ $user->first_name }},</p>
+    <p>You have requested a password reset. Your new password is: {{ $password }}</p>
+    <p>Please log in and change your password after logging in.</p>
+</body>
+</html>

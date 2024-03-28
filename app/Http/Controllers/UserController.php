@@ -138,23 +138,65 @@ public function destroy(User $user)
     }
         
     public function resetPassword(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        // Find the user by email
+        $user = User::where('email', $request->email)->first();
+
+        // $user = User::findOrFail($request->id);
+        // Set user's password
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        // Mail::to($user->email)->send(new UserInvitation($user, $request->password));
+        
+        // Redirect user to dashboard or wherever you want
+        return redirect()->route('auth-login-basic')->with('success', 'Password reset successfully!');
+    }
+
+    // public function resetPassword(Request $request)
+    // {
+    //     // Validate request
+    //     $request->validate([
+    //         'id'=> 'required|exists:users,id',
+    //         // 'email' => 'required|email|exists:users,email',
+    //         'password' => 'required|string|min:8|confirmed',
+    //     ]);
+    //     // Find the user by email
+    //     // $user = User::where('email', $request->email)->first();
+
+    //     $user = User::findOrFail($request->id);
+    //     // Set user's password
+    //     $user->password = bcrypt($request->password);
+    //     $user->save();
+
+    //     // Mail::to($user->email)->send(new UserInvitation($user, $request->password));
+        
+    //     // Redirect user to dashboard or wherever you want
+    //     return redirect()->route('auth-login-basic')->with('success', 'Password reset successfully!');
+    // }
+    public function resetPasswordform(Request $request)
 {
-    
-    
     // Validate request
     $request->validate([
-        'email' => 'required|email|exists:users,email',
+        'user_id' => 'required|exists:users,id',
         'password' => 'required|string|min:8|confirmed',
     ]);
-    // Find the user by email
-    $user = User::where('email', $request->email)->first();
 
-    // Set user's password
+    // Find the user
+    $user = User::findOrFail($request->user_id);
+
+    // Update user's password
     $user->password = bcrypt($request->password);
     $user->save();
 
-    // Redirect user to dashboard or wherever you want
-    return redirect()->route('auth-login-basic')->with('success', 'Password reset successfully!');
+    // Redirect back with a success message
+    return redirect()->route('users-index')->with('success', 'Password reset successfully!');
 }
+
 
 }

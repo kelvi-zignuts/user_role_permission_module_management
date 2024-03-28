@@ -94,11 +94,10 @@ Route::middleware('auth')->group(function () use ($controller_path) {
         Route::post('/{user}/update', [UserController::class,'update'])->name('users.update');
         Route::post('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
+        Route::post('/users/resetpasswordform', [UserController::class, 'resetPasswordform'])->name('users.resetpasswordform');
+
         // Route::get('/{user}/reset-password', [UserController::class, 'showResetPasswordForm'])->name('users.resetpasswordform');
         // Route::post('/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.resetpassword');
-
-
-
     });
 
 

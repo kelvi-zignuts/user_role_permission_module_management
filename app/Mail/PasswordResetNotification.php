@@ -26,12 +26,9 @@ class PasswordResetNotification extends Mailable
     }
     public function build()
     {
-        return $this->view('mail.admin_reset_password')
-                    ->subject('Password Reset') // Subject of the email
-                    ->with([
-                        'user' => $this->user,
-                        'password' => $this->password,
-                    ]);
+        return $this->subject('Password Reset')->view('mail.admin_reset_password');
+                   
+                    
     }
     /**
      * Get the message envelope.
